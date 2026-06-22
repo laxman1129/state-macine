@@ -1,0 +1,49 @@
+
+###
+POST http://localhost:8080/workflow/event
+Content-Type: application/json
+
+
+{
+  "workflowName": "station",
+  "entityId": 99,
+  "event": "SUBMIT",
+  "performedBy": "user123",
+  "data": {
+    "itemName": "Sample Item",
+    "itemDescription": "This is a sample item created for testing."
+  }
+}
+
+###
+POST http://localhost:8080/workflow/event
+Content-Type: application/json
+
+
+{
+  "workflowName": "station",
+  "entityId": 99,
+  "event": "APPROVE",
+  "performedBy": "MANAGER",
+  "data": {
+    "itemName": "Sample Item",
+    "itemDescription": "This is a sample item created for testing.",
+    "role": "MANAGER"
+  }
+}
+
+
+###
+POST http://localhost:8080/workflow/event
+Content-Type: application/json
+
+
+{
+  "workflowName": "supplier",
+  "entityId": 55,
+  "event": "VERIFY",
+  "performedBy": "user123",
+  "data": {
+    "supplierName": "ACME Supplies"
+  }
+}

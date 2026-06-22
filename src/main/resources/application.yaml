@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: statemachine
+
+workflow:
+  definitions:
+    station:
+      version: 1
+      initial-state: DRAFT
+      states:
+        - DRAFT
+        - PENDING_APPROVAL
+        - ACTIVE
+        - SUSPENDED
+      transitions:
+        - source: DRAFT
+          target: PENDING_APPROVAL
+          event: SUBMIT
+        - source: PENDING_APPROVAL
+          target: ACTIVE
+          event: APPROVE
+          guard: managerApprovalGuard
+          action: sendEmailAction
+        - source: ACTIVE
+          target: SUSPENDED
+          event: SUSPEND
+    supplier:
+      version: 1
+      initial-state: CREATED
+      states:
+        - CREATED
+        - VERIFIED
+        - BLOCKED
+      transitions:
+        - source: CREATED
+          target: VERIFIED
+          event: VERIFY
+        - source: VERIFIED
+          target: BLOCKED
+          event: BLOCK

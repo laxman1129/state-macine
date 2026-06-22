@@ -1,0 +1,50 @@
+# Maven build files
+/target/
+*.iml
+*.iws
+*.ipr
+.idea/
+
+# Application runtime files
+*.log
+*.out
+logs/
+
+# Environment and configuration files
+.env*
+application.properties
+application.yml
+*.cfg
+config/local*.yml
+
+# IDE temporary files
+tmp/
+tmp_*/
+swp
+swo
+*~
+vscode-cdn.pid
+
+# OS specific files
+.DS_Store
+.DS_Store?
+desktop.ini
+thumbs.db
+
+# Package management and lock files (if applicable)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+Pipfile.lock
+
+# Python virtual environments
+venv/
+.venv/
+env/
+
+# Git credential manager storage
+credentialsStore*
+git-credential-cache*
+git-credentials*
+.git-credentials
+.git-credentials-store*

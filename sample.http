@@ -24,7 +24,7 @@ Content-Type: application/json
   "workflowName": "station",
   "entityId": 99,
   "event": "APPROVE",
-  "performedBy": "MANAGER",
+  "performedBy": "user123",
   "data": {
     "itemName": "Sample Item",
     "itemDescription": "This is a sample item created for testing.",

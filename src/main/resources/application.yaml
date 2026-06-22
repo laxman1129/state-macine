@@ -6,7 +6,7 @@ workflow:
   definitions:
     station:
       version: 1
-      initial-state: DRAFT
+      initialState: DRAFT
       states:
         - DRAFT
         - PENDING_APPROVAL
@@ -26,7 +26,7 @@ workflow:
           event: SUSPEND
     supplier:
       version: 1
-      initial-state: CREATED
+      initialState: CREATED
       states:
         - CREATED
         - VERIFIED

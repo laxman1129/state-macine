@@ -17,18 +17,21 @@ public class DefaultWorkflowEngine implements WorkflowEngine {
     private final WorkflowInstanceRepository repo;
     private final ActionRegistry actionRegistry;
     private final GuardRegistry guardRegistry;
+    private final TransitionResolver transitionResolver;
 
     public DefaultWorkflowEngine(WorkflowRegistry registry,
                                  WorkflowInstanceRepository repo,
                                  ActionRegistry actionRegistry,
-                                 GuardRegistry guardRegistry) {
+                                 GuardRegistry guardRegistry,
+                                 TransitionResolver transitionResolver) {
         this.registry = registry;
         this.repo = repo;
         this.actionRegistry = actionRegistry;
         this.guardRegistry = guardRegistry;
+        this.transitionResolver = transitionResolver;
     }
 
-    @Override
+      @Override
     public WorkflowInstance fireEvent(String workflowName,
                                       Long entityId,
                                       String entityType,
@@ -39,27 +42,23 @@ public class DefaultWorkflowEngine implements WorkflowEngine {
 
         WorkflowDefinition def = registry.get(workflowName, VERSION);
 
-        TransitionDefinition transition = def.transitions().stream()
-                .filter(t ->
-                        t.source().equals(instance.currentState())
-                                && t.event().equals(event)
-                )
-                .findFirst()
-                .orElseThrow();
+        TransitionDefinition transition = transitionResolver.resolve(
+            def, instance.currentState(), event
+        );
 
         if (transition.guard() != null) {
             boolean ok = guardRegistry
-                    .get(transition.guard())
-                    .evaluate(context);
+                      .get(transition.guard())
+                      .evaluate(context);
 
             if (!ok) throw new RuntimeException("Guard failed");
-        }
+          }
 
         if (transition.action() != null) {
             actionRegistry
-                    .get(transition.action())
-                    .execute(context);
-        }
+                      .get(transition.action())
+                      .execute(context);
+          }
 
 
         WorkflowInstance newInstance = new WorkflowInstance(
@@ -69,8 +68,8 @@ public class DefaultWorkflowEngine implements WorkflowEngine {
                 instance.workflowName(),
                 VERSION,
                 transition.target()
-        );
+          );
 
         return repo.save(newInstance);
-    }
+      }
 }

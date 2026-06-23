@@ -154,6 +154,7 @@ The `StatemachineApplicationTests.java` provides a basic test framework that can
 3. **Database Persistence**: Workflow state is stored in database between events
 4. **Extensibility**: New workflows, actions, and guards can be added without changing core code
 5. **YAML-Driven Configuration**: All workflow logic changes go through YAML configuration files
+6. **Git Commit Restrictions**: This repository has git commit restrictions enforced via .claude/settings.json to prevent accidental or unauthorized commits. If you need to make a permanent change, contact the repository administrator for temporary restriction lifting.
 
 ## Getting Started
 
